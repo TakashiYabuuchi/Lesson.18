@@ -175,8 +175,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // ValidatorServiceProvider追加
+        App\Providers\ValidatorServiceProvider::class,
+
         //HtmlServiceProviderライブラリ追加
         Collective\Html\HtmlServiceProvider::class,
+
 
     ],
 

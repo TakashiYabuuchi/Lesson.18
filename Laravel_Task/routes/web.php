@@ -40,7 +40,7 @@ Route::get('/create-form',[PostsController::class,'createForm']);
 Route::post('/post/create',[PostsController::class,'create']);
 
 // updateForm（投稿編集画面）へのルーティング
-Route::post('/post/update-form',[PostsController::class,'updateForm']);
+Route::get('/post/{id}/update-form',[PostsController::class,'updateForm']);
 
 // update（投稿編集処理）へのルーティング
 Route::post('/post/update',[PostsController::class,'update']);

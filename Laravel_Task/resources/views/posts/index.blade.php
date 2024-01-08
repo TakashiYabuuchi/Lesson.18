@@ -36,12 +36,7 @@
 <!-- ログインユーザーが投稿したものに、更新・削除ボタンを表示 -->
 @if($list->user_name==\Auth::user()->name)
 <!-- 更新ボタン -->
-<td>
-  {!! Form::open(['url' => '/post/update-form']) !!}
-  {!! Form::hidden('id', $list->id) !!}
-  <button type="submit" class="btn btn-primary">更新</button>
-  {!! Form::close() !!}
-</td>
+<td><a class="btn btn-primary" href="/post/{{$list->id}}/update-form">更新</a></td>
 
 <!-- 削除ボタン -->
 <td>

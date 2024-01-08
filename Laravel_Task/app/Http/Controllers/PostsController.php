@@ -51,13 +51,15 @@ class PostsController extends Controller
     {
     $user=\Auth::user()->name;// ログインしているユーザーのユーザー名を取得
     $post=$request->input('newPost');// 投稿フォームに入力されたデータ取得
-    // バリデーション（文字数100字まで）
+    // バリデーション（空白のみでの投稿不可・文字数100字まで）
     $validated=$request->validate([
-    'newPost'=>'max:100'
-    ],
-    [// エラーメッセージ
-    'newPost.max'=>'投稿可能なメッセージは100文字までです。'
-    ]);
+        'newPost'=>'nospace|string|max:100'
+        ],
+        [// エラーメッセージ
+        'newPost.nospace'=>'空白のみでの投稿はできません。',
+        'newPost.string'=>'空白のみでの投稿はできません。',
+        'newPost.max'=>'投稿可能なメッセージは100文字までです。'
+        ]);
     // postsテーブルにユーザー名と投稿内容を登録
     DB::table('posts')->insert([
     'user_name'=>$user,
@@ -68,10 +70,9 @@ class PostsController extends Controller
 
 
     // updateFormメソッド（投稿編集画面表示）
-    public function updateForm(Request $request)
+    public function updateForm($id)
     {
-    // 更新したい投稿のIDを受け取り、現在の投稿内容を取得
-    $id=$request->input('id');
+    //更新したい投稿のIDを受け取り、投稿内容を取得
     $post=DB::table('posts')
     ->where('id',$id)
     ->first();
@@ -82,17 +83,19 @@ class PostsController extends Controller
     // updateメソッド（投稿編集処理）
     public function update(Request $request)
     {
-    // 編集する投稿のIDと入力された編集内容を取得
+    // ユーザーIDと更新内容を取得
     $id=$request->input('id');
     $up_post=$request->input('upPost');
-    // バリデーション（文字数100字まで）
+    // バリデーション（空白のみでの投稿不可・文字数100字まで）
     $validated=$request->validate([
-    'upPost'=>'max:100'
+    'upPost'=>'nospace|string|max:100'
     ],
     [// エラーメッセージ
+    'upPost.nospace'=>'空白のみでの投稿はできません。',
+    'upPost.string'=>'空白のみでの投稿はできません。',
     'upPost.max'=>'投稿可能なメッセージは100文字までです。'
     ]);
-    // postsテーブルの受け取ったIDと一致した投稿を更新
+    // postsテーブルの投稿内容を更新
     DB::table('posts')
     ->where('id',$id)
     ->update(

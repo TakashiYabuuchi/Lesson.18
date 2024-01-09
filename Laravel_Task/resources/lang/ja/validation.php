@@ -128,5 +128,12 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
-    'attributes'           => [],
+    // 属性名の日本語化登録
+    'attributes'           => [
+        'name'=>'名前',
+        'email'=>'メールアドレス',
+        'password'=>'パスワード',
+        'newPost'=>'投稿',
+        'upPost'=>'投稿',
+    ],
 ];

@@ -30,7 +30,7 @@ class PostsController extends Controller
     {
     $keyword=$request->input('postSearch');// 検索フォームに入力されたデータ取得
     $list=DB::table('posts');// データベースのpostsテーブルを指定
-    if(!empty($keyword)) {// 検索フォームに入力されている場合
+    if(!empty($keyword) && !mb_ereg_match("^(\s|　)+$", $keyword)) {// 検索フォームに入力されている場合
     $list->where('contents', 'LIKE', "%{$keyword}%");// 入力されたワードに完全もしくは部分一致したデータを検索
     }
     $all=DB::table('posts');// データベースのpostsテーブルを指定（postsテーブルにデータが1つでも入っていることの確認のため）
